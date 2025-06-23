@@ -1,0 +1,267 @@
+#1 [internal] load local bake definitions
+#1 reading from stdin 408B done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 1.23kB done
+#2 WARN: FromAsCasing: 'as' and 'FROM' keywords' casing do not match (line 2)
+#2 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/nginx:alpine
+#3 ...
+
+#4 [internal] load metadata for docker.io/library/node:18-alpine
+#4 DONE 0.8s
+
+#3 [internal] load metadata for docker.io/library/nginx:alpine
+#3 DONE 0.8s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 139B done
+#5 DONE 0.0s
+
+#6 [builder 1/7] FROM docker.io/library/node:18-alpine@sha256:8d6421d663b4c28fd3ebc498332f249011d118945588d0a35cb9bc4b8ca09d9e
+#6 DONE 0.0s
+
+#7 [builder 2/7] WORKDIR /app
+#7 CACHED
+
+#8 [stage-1 1/2] FROM docker.io/library/nginx:alpine@sha256:65645c7bb6a0661892a8b03b89d0743208a18dd2f3f17a54ef4b76fb8e2f2a10
+#8 CACHED
+
+#9 [internal] load build context
+#9 transferring context: 1.19kB done
+#9 DONE 0.0s
+
+#10 [builder 3/7] COPY package*.json ./
+#10 DONE 0.1s
+
+#11 [builder 4/7] RUN npm install --production
+#11 0.438 npm warn config production Use `--omit=dev` instead.
+#11 26.47 npm warn deprecated sourcemap-codec@1.4.8: Please use @jridgewell/sourcemap-codec instead
+#11 26.58 npm warn deprecated rollup-plugin-terser@7.0.2: This package has been deprecated and is no longer maintained. Please use @rollup/plugin-terser
+#11 27.02 npm warn deprecated workbox-cacheable-response@6.6.0: workbox-background-sync@6.6.0
+#11 27.20 npm warn deprecated workbox-google-analytics@6.6.0: It is not compatible with newer versions of GA starting with v4, as long as you are using GAv3 it should be ok, but the package is not longer being maintained
+#11 27.27 npm warn deprecated stable@0.1.8: Modern JS already guarantees Array#sort() is a stable sort, so this library is deprecated. See the compatibility table on MDN: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#browser_compatibility
+#11 27.34 npm warn deprecated q@1.5.1: You or someone you depend on is using Q, the JavaScript Promise library that gave JavaScript developers strong feelings about promises. They can almost certainly migrate to the native JavaScript promise now. Thank you literally everyone for joining me in this bet against the odds. Be excellent to each other.
+#11 27.34 npm warn deprecated
+#11 27.34 npm warn deprecated (For a CapTP with native promises, see @endo/eventual-send and @endo/captp)
+#11 28.15 npm warn deprecated w3c-hr-time@1.0.2: Use your platform's native performance.now() and performance.timeOrigin.
+#11 28.15 npm warn deprecated domexception@2.0.1: Use your platform's native DOMException instead
+#11 28.15 npm warn deprecated abab@2.0.6: Use your platform's native atob() and btoa() methods instead
+#11 28.35 npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+#11 28.37 npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+#11 28.53 npm warn deprecated rimraf@3.0.2: Rimraf versions prior to v4 are no longer supported
+#11 28.93 npm warn deprecated @humanwhocodes/object-schema@2.0.3: Use @eslint/object-schema instead
+#11 29.10 npm warn deprecated @humanwhocodes/config-array@0.13.0: Use @eslint/config-array instead
+#11 29.32 npm warn deprecated @babel/plugin-proposal-private-methods@7.18.6: This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-private-methods instead.
+#11 29.32 npm warn deprecated @babel/plugin-proposal-optional-chaining@7.21.0: This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-optional-chaining instead.
+#11 29.32 npm warn deprecated @babel/plugin-proposal-nullish-coalescing-operator@7.18.6: This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-nullish-coalescing-operator instead.
+#11 29.32 npm warn deprecated @babel/plugin-proposal-numeric-separator@7.18.6: This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-numeric-separator instead.
+#11 29.33 npm warn deprecated @babel/plugin-proposal-class-properties@7.18.6: This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-class-properties instead.
+#11 32.69 npm warn deprecated svgo@1.3.2: This SVGO version is no longer supported. Upgrade to v2.x.x.
+#11 32.78 npm warn deprecated @babel/plugin-proposal-private-property-in-object@7.21.11: This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-private-property-in-object instead.
+#11 34.56 npm warn deprecated eslint@8.57.1: This version is no longer supported. Please see https://eslint.org/version-support for other options.
+#11 37.16 
+#11 37.16 added 1523 packages, and audited 1524 packages in 37s
+#11 37.16 
+#11 37.16 275 packages are looking for funding
+#11 37.16   run `npm fund` for details
+#11 37.17 
+#11 37.17 9 vulnerabilities (3 moderate, 6 high)
+#11 37.17 
+#11 37.17 To address all issues (including breaking changes), run:
+#11 37.17   npm audit fix --force
+#11 37.17 
+#11 37.17 Run `npm audit` for details.
+#11 37.18 npm notice
+#11 37.18 npm notice New major version of npm available! 10.8.2 -> 11.4.2
+#11 37.18 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.4.2
+#11 37.18 npm notice To update run: npm install -g npm@11.4.2
+#11 37.18 npm notice
+#11 DONE 37.5s
+
+#12 [builder 5/7] COPY . .
+#12 DONE 0.1s
+
+#13 [builder 6/7] RUN echo "--- START OF /app/src/App.js content in Docker build context ---"     && cat src/App.js     && echo "--- END OF /app/src/App.js content ---"     && grep -rn "127.0.0.1:3000" src/App.js || echo "127.0.0.1:3000 NOT FOUND in App.js"     && grep -rn "f1-backend" src/App.js || echo "f1-backend NOT FOUND in App.js"
+#13 0.270 --- START OF /app/src/App.js content in Docker build context ---
+#13 0.271 import React, { useState, useEffect } from 'react';
+#13 0.271 import './App.css';
+#13 0.271 
+#13 0.271 function App() {
+#13 0.271   const [sessions, setSessions] = useState([]);
+#13 0.271   const [selectedSessionId, setSelectedSessionId] = useState(null);
+#13 0.271   const [laps, setLaps] = useState([]);
+#13 0.271   const [loading, setLoading] = useState(false);
+#13 0.271   const [error, setError] = useState(null);
+#13 0.271 
+#13 0.271   // Get API base URL from environment variable (Docker)
+#13 0.271 //  const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || '/api';
+#13 0.271   const API_BASE_URL = "http://127.0.0.1:3000/api";
+#13 0.271 
+#13 0.271   // Fetch sessions on component mount
+#13 0.271   useEffect(() => {
+#13 0.271     setLoading(true);
+#13 0.271     setError(null); // Clear previous errors
+#13 0.271     fetch(`${API_BASE_URL}/sessions`)
+#13 0.271       .then(response => {
+#13 0.271         if (!response.ok) {
+#13 0.271           throw new Error(`HTTP error! status: ${response.status}`);
+#13 0.271         }
+#13 0.271         return response.json();
+#13 0.271       })
+#13 0.271       .then(data => {
+#13 0.271         setSessions(data);
+#13 0.271         setLoading(false);
+#13 0.271       })
+#13 0.271       .catch(error => {
+#13 0.271         setError(error);
+#13 0.271         setLoading(false);
+#13 0.271       });
+#13 0.271   }, [API_BASE_URL]);
+#13 0.271 
+#13 0.271   // Fetch laps when a session is selected
+#13 0.271   useEffect(() => {
+#13 0.271     if (selectedSessionId) {
+#13 0.271       setLoading(true);
+#13 0.271       setError(null); // Clear previous errors
+#13 0.271       fetch(`${API_BASE_URL}/laps/${selectedSessionId}`)
+#13 0.271         .then(response => {
+#13 0.271           if (!response.ok) {
+#13 0.271             throw new Error(`HTTP error! status: ${response.status}`);
+#13 0.271           }
+#13 0.271           return response.json();
+#13 0.271         })
+#13 0.271         .then(data => {
+#13 0.271           setLaps(data);
+#13 0.271           setLoading(false);
+#13 0.271         })
+#13 0.271         .catch(error => {
+#13 0.271           setError(error);
+#13 0.271           setLoading(false);
+#13 0.271         });
+#13 0.271     } else {
+#13 0.271       setLaps([]); // Clear laps if no session is selected
+#13 0.271     }
+#13 0.271   }, [selectedSessionId, API_BASE_URL]);
+#13 0.271 
+#13 0.271   const handleSessionChange = (event) => {
+#13 0.271     setSelectedSessionId(event.target.value);
+#13 0.271   };
+#13 0.271 
+#13 0.271   const formatMilliseconds = (ms) => {
+#13 0.271     if (ms === null || ms === undefined) return '-';
+#13 0.271     const totalSeconds = ms / 1000;
+#13 0.271     const minutes = Math.floor(totalSeconds / 60);
+#13 0.271     const seconds = Math.floor(totalSeconds % 60);
+#13 0.271     const millis = Math.round((totalSeconds - Math.floor(totalSeconds)) * 1000);
+#13 0.271     return `${minutes}:${String(seconds).padStart(2, '0')}.${String(millis).padStart(3, '0')}`;
+#13 0.271   };
+#13 0.271 
+#13 0.271   return (
+#13 0.271     <div className="App">
+#13 0.271       <header className="App-header">
+#13 0.271         <h1>F1 Data Dashboard</h1>
+#13 0.271       </header>
+#13 0.271       <main>
+#13 0.271         {loading && <p>Loading data...</p>}
+#13 0.271         {error && <p>Error: {error.message}</p>}
+#13 0.271 
+#13 0.271         <section className="session-selector">
+#13 0.271           <h2>Select Session</h2>
+#13 0.271           <select onChange={handleSessionChange} value={selectedSessionId || ''}>
+#13 0.271             <option value="">-- Please choose a session --</option>
+#13 0.271             {sessions.map(session => (
+#13 0.271               <option key={session.session_id} value={session.session_id}>
+#13 0.271                 {session.year} {session.gp_name} - {session.session_type} ({session.date})
+#13 0.271               </option>
+#13 0.271             ))}
+#13 0.271           </select>
+#13 0.271         </section>
+#13 0.271 
+#13 0.271         {selectedSessionId && (
+#13 0.271           <section className="lap-data">
+#13 0.271             <h2>Lap Data</h2>
+#13 0.271             {laps.length > 0 ? (
+#13 0.271               <table>
+#13 0.271                 <thead>
+#13 0.271                   <tr>
+#13 0.271                     <th>Driver</th>
+#13 0.271                     <th>Lap No.</th>
+#13 0.271                     <th>Lap Time</th>
+#13 0.271                     <th>Sector 1</th>
+#13 0.271                     <th>Sector 2</th>
+#13 0.271                     <th>Sector 3</th>
+#13 0.271                     <th>Speed Trap (km/h)</th>
+#13 0.271                     <th>Tyre Compound</th>
+#13 0.271                   </tr>
+#13 0.271                 </thead>
+#13 0.271                 <tbody>
+#13 0.271                   {laps.map(lap => (
+#13 0.271                     <tr key={lap.lap_id}>
+#13 0.271                       <td>{lap.driver}</td>
+#13 0.271                       <td>{lap.lap_number}</td>
+#13 0.271                       <td>{formatMilliseconds(lap.lap_time_ms)}</td>
+#13 0.271                       <td>{formatMilliseconds(lap.sector1_time_ms)}</td>
+#13 0.271                       <td>{formatMilliseconds(lap.sector2_time_ms)}</td>
+#13 0.271                       <td>{formatMilliseconds(lap.sector3_time_ms)}</td>
+#13 0.271                       <td>{lap.speed_trap_kmh || '-'}</td>
+#13 0.271                       <td>{lap.tyre_compound || '-'}</td>
+#13 0.271                     </tr>
+#13 0.271                   ))}
+#13 0.271                 </tbody>
+#13 0.271               </table>
+#13 0.271             ) : (
+#13 0.271               <p>No lap data available for this session.</p>
+#13 0.271             )}
+#13 0.271           </section>
+#13 0.271         )}
+#13 0.271       </main>
+#13 0.271     </div>
+#13 0.271   );
+#13 0.271 }
+#13 0.271 
+#13 0.271 export default App;
+#13 0.271 --- END OF /app/src/App.js content ---
+#13 0.272 13:  const API_BASE_URL = "http://127.0.0.1:3000/api";
+#13 0.273 f1-backend NOT FOUND in App.js
+#13 DONE 0.3s
+
+#14 [builder 7/7] RUN npx react-scripts build
+#14 2.419 Creating an optimized production build...
+#14 8.696 Compiled successfully.
+#14 8.696 
+#14 8.696 File sizes after gzip:
+#14 8.696 
+#14 8.709   47.05 kB  build/static/js/main.0bb10108.js
+#14 8.709   1.77 kB   build/static/js/453.dc241a9f.chunk.js
+#14 8.709   540 B     build/static/css/main.5ccae431.css
+#14 8.709 
+#14 8.709 The project was built assuming it is hosted at /.
+#14 8.709 You can control this with the homepage field in your package.json.
+#14 8.709 
+#14 8.709 The build folder is ready to be deployed.
+#14 8.710 You may serve it with a static server:
+#14 8.710 
+#14 8.710   npm install -g serve
+#14 8.710   serve -s build
+#14 8.710 
+#14 8.710 Find out more about deployment here:
+#14 8.710 
+#14 8.710   https://cra.link/deployment
+#14 8.710 
+#14 DONE 8.8s
+
+#15 [stage-1 2/2] COPY --from=builder /app/build /usr/share/nginx/html
+#15 DONE 0.1s
+
+#16 exporting to image
+#16 exporting layers 0.0s done
+#16 writing image sha256:825bfa472b7137947bcbff4fe504fffcd9c51e59ea21475f99a379ee328f15c1 done
+#16 naming to docker.io/library/f1_dashboard-frontend done
+#16 DONE 0.0s
+
+#17 resolving provenance for metadata file
+#17 DONE 0.0s
+ f1_dashboard-frontend  Built

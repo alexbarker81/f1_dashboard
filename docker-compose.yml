@@ -1,0 +1,78 @@
+services:
+  db:
+    image: mysql:8.0
+    container_name: f1-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: f1_data
+    ports:
+      - "3306:3306" # Only needed if you want to connect from your host, e.g., MySQL Workbench
+    volumes:
+      - f1-db-data:/var/lib/mysql
+    healthcheck: # Define healthcheck for DB
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+      timeout: 20s
+      retries: 10
+      interval: 3s
+
+  python_ingest:
+    build:
+      context: ./python_ingest
+      dockerfile: Dockerfile
+    container_name: f1-ingest
+    depends_on:
+      db:
+        condition: service_healthy # Wait for DB to be ready
+    environment:
+      MYSQL_HOST: db # 'db' is the service name, Docker's internal DNS resolves this
+      MYSQL_USER: root
+      MYSQL_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: f1_data
+    volumes:
+      - ./python_ingest:/app:Z # Mount local script for easy changes
+      - f1_cache:/app/cache:Z  # Persistent cache for FastF1
+    # This container runs and exits. If you want it to run periodically,
+    # you'd manage that outside of `docker-compose up` or use a different tool.
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: f1-backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      db:
+        condition: service_healthy # Wait for DB to be ready
+    environment:
+      MYSQL_HOST: db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: f1_data
+    volumes:
+      # Mount the 'frontend_build_data' volume into the backend's static directory
+      - frontend_build_data:/app/public
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      args:
+        REACT_APP_API_BASE_URL: "http://127.0.0.1:8080/api"
+    container_name: f1-frontend
+    ports:
+      - "8081:80" # Map container port 80 (Nginx) to host port 8080
+    depends_on:
+      backend:
+        condition: service_started # Only needs backend to be started, not fully healthy, for the proxy
+    volumes:
+      # Mount the 'frontend_build_data' volume from THIS container's build output
+      # This effectively "copies" the /usr/share/nginx/html from the frontend container
+      # into the shared named volume, which is then mounted by the backend.
+      - frontend_build_data:/usr/share/nginx/html
+
+volumes:
+  f1-db-data: # Persistent volume for MySQL data
+  f1_cache:   # Persistent volume for FastF1 cache data
+  frontend_build_data: # NEW: Named volume to share frontend build output
