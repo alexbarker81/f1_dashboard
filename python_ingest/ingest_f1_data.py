@@ -202,4 +202,7 @@ if __name__ == "__main__":
     print("Starting F1 data ingestion...")
     get_f1_data_and_store(2023, 'Monaco', 'Race')
     get_f1_data_and_store(2023, 'Bahrain', 'Race')
+    get_f1_data_and_store(2023, 'Great Britain', 'Race')
+    get_f1_data_and_store(2024, 'Great Britain', 'Race')
+
     print("F1 data ingestion finished.")

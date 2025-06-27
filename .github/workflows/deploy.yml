@@ -1,0 +1,83 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main # Trigger this workflow whenever code is pushed to the 'main' branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest # Use a standard Ubuntu runner provided by GitHub
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4 # Action to get your repository's code onto the runner
+
+      - name: Set up SSH agent
+        uses: webfactory/ssh-agent@v0.9.0 # Action to load your SSH private key securely
+        with:
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }} # Use the secret you created
+
+      - name: Add EC2 Host to known_hosts
+        run: |
+          # Create .ssh directory if it doesn't exist (though webfactory/ssh-agent might create it)
+          mkdir -p ~/.ssh
+          # Add your EC2 instance's fingerprint to known_hosts to avoid host key checking prompts
+          ssh-keyscan -H ${{ secrets.EC2_HOST_PUBLIC_IP }} >> ~/.ssh/known_hosts
+          # Ensure correct permissions for known_hosts
+          chmod 600 ~/.ssh/known_hosts
+
+      - name: Sync and Deploy on EC2
+        env:
+          # Define environment variables to be used in the 'run' command
+          REMOTE_USER: ec2-user # Set this to 'ubuntu' if your EC2 instance is Ubuntu
+          REMOTE_PATH: /home/${{ env.REMOTE_USER }}/f1_dashboard/ # Path where your project lives on EC2
+        run: |
+          echo "Starting rsync to AWS instance..."
+
+          # Use rsync to transfer files from the current directory (repo root) to the remote path
+          # The trailing slash on './' is important: it means "copy contents of current dir"
+          rsync -avz --delete \
+                --exclude '.git/' \
+                --exclude '.gitignore' \
+                --exclude '.env*' \
+                --exclude 'node_modules/' \
+                --exclude 'build/' \
+                --exclude 'cache/' \
+                --exclude '*.log' \
+                --exclude '*.tar.gz' \
+                --exclude '*.zip' \
+                --exclude '*.sublime-project' \
+                --exclude '*.sublime-workspace' \
+                --exclude '.vscode/' \
+                --exclude '.idea/' \
+                --exclude '.DS_Store' \
+                --exclude 'npm-debug.log' \
+                --exclude 'yarn-debug.log' \
+                --exclude 'yarn-error.log' \
+                --exclude 'coverage/' \
+                --exclude 'temp/'
+                --exclude 'tmp/'
+                --exclude 'vendor/bundle/'
+                --exclude '*.swp'
+                --exclude '~*'
+                --exclude '.github/' \
+                ./ "${REMOTE_USER}@${{ secrets.EC2_HOST_PUBLIC_IP }}:${REMOTE_PATH}"
+
+          echo "Files synced. Now restarting Docker Compose services..."
+
+          # SSH into EC2 and run Docker Compose commands
+          # `docker compose down` stops and removes existing containers
+          # `docker compose up --build -d` pulls code (if not already synced), rebuilds images, and starts services
+          ssh "${REMOTE_USER}@${{ secrets.EC2_HOST_PUBLIC_IP }}" "cd ${REMOTE_PATH} && docker compose down && docker compose up --build -d"
+
+          echo "Deployment initiated on EC2. Check EC2 instance logs for status."
+
+      - name: Check EC2 Deployment Status (Optional)
+        if: always() # This step will always run, even if previous steps fail
+        run: |
+          echo "Checking Docker Compose status on EC2..."
+          # SSH and check docker compose ps status
+          ssh "${REMOTE_USER}@${{ secrets.EC2_HOST_PUBLIC_IP }}" "cd ${REMOTE_PATH} && docker compose ps"
+          # SSH and get logs of a key service, e.g., backend, to see if it started correctly
+          ssh "${REMOTE_USER}@${{ secrets.EC2_HOST_PUBLIC_IP }}" "cd ${REMOTE_PATH} && docker compose logs f1-backend | tail -n 20"
